@@ -1,7 +1,7 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/typescript.html
 import { HookContext as FeathersHookContext, NextFunction } from "@feathersjs/feathers"
 import { Application as FeathersApplication } from "@feathersjs/koa"
-import { ApplicationConfiguration } from "./configuration"
+import { ApplicationConfiguration } from "./core/configuration"
 
 import { User } from "./services/users/users"
 

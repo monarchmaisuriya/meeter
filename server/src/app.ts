@@ -1,13 +1,11 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html
 import { feathers } from "@feathersjs/feathers"
 import configuration from "@feathersjs/configuration"
-import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors, serveStatic } from "@feathersjs/koa"
-
-import { configurationValidator } from "./configuration"
+import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors } from "@feathersjs/koa"
+import { configurationValidator } from "./core/configuration"
 import type { Application } from "./declarations"
 import { logError } from "./hooks/log-error"
-import { sqlite } from "./sqlite"
-import { authentication } from "./authentication"
+import { authentication } from "./core/authentication"
 import { services } from "./services/index"
 
 const app: Application = koa(feathers())
@@ -17,7 +15,6 @@ app.configure(configuration(configurationValidator))
 
 // Set up Koa middleware
 app.use(cors())
-app.use(serveStatic(app.get("public")))
 app.use(errorHandler())
 app.use(parseAuthentication())
 app.use(bodyParser())
@@ -25,7 +22,6 @@ app.use(bodyParser())
 // Configure services and transports
 app.configure(rest())
 
-app.configure(sqlite)
 app.configure(authentication)
 app.configure(services)
 

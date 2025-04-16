@@ -9,15 +9,11 @@
     "default": 10,
     "max": 50
   },
-  "sqlite": {
-    "client": "sqlite3",
-    "connection": "./data/meeter.sqlite",
-    "useNullAsDefault": true
-  },
   "authentication": {
     "entity": "user",
+    "entityId": "googleId",
     "service": "users",
-    "secret": "yUUHi3gfZB0HMhTg9pnRqsYyL32Msbl4",
+    "secret": "AA053XKARQbDhZh5YaKGe35/C+Sqm3Ax",
     "authStrategies": [
       "jwt"
     ],

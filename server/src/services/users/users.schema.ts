@@ -1,10 +1,10 @@
-// // For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
+// For more information about this file see https://dove.feathersjs.com/guides/cli/service.schemas.html
 import { resolve } from "@feathersjs/schema"
 import { Type, getValidator, querySyntax } from "@feathersjs/typebox"
 import type { Static } from "@feathersjs/typebox"
 
-import type { HookContext } from "../../declarations"
-import { dataValidator, queryValidator } from "../../validators"
+import type { HookContext } from "@/declarations"
+import { dataValidator, queryValidator } from "../../utils/validators"
 import type { UserService } from "./users.class"
 
 // Main data model schema

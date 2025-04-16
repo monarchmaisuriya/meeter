@@ -14,7 +14,7 @@ import {
   userQueryResolver
 } from "./users.schema"
 
-import type { Application } from "../../declarations"
+import type { Application } from "@/declarations"
 import { UserService, getOptions } from "./users.class"
 
 export const userPath = "users"

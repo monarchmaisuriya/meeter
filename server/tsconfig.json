@@ -10,7 +10,10 @@
     "declaration": true,
     "strict": true,
     "esModuleInterop": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "paths": {
+        "@/*": ["./src/*"]
+    }
   },
   "include": [
     "src"
