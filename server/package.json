@@ -15,7 +15,7 @@
   "feathers": {
     "language": "ts",
     "packager": "npm",
-    "database": "sqlite",
+    "database": "other",
     "framework": "koa",
     "transports": [
       "rest"
@@ -33,10 +33,8 @@
     "start": "node lib/",
     "prettier": "npx prettier \"**/*.ts\" --write",
     "mocha": "cross-env NODE_ENV=test mocha test/ --require ts-node/register --recursive --extension .ts --exit",
-    "test": "cross-env NODE_ENV=test npm run migrate && npm run mocha",
-    "bundle:client": "npm run compile && npm pack --pack-destination ./public",
-    "migrate": "knex migrate:latest",
-    "migrate:make": "knex migrate:make"
+    "test": "npm run mocha",
+    "bundle:client": "npm run compile && npm pack --pack-destination ./public"
   },
   "dependencies": {
     "@feathersjs/adapter-commons": "^5.0.33",
@@ -46,13 +44,11 @@
     "@feathersjs/configuration": "^5.0.33",
     "@feathersjs/errors": "^5.0.33",
     "@feathersjs/feathers": "^5.0.33",
-    "@feathersjs/knex": "^5.0.33",
     "@feathersjs/koa": "^5.0.33",
+    "@feathersjs/memory": "^5.0.33",
     "@feathersjs/schema": "^5.0.33",
     "@feathersjs/transport-commons": "^5.0.33",
     "@feathersjs/typebox": "^5.0.33",
-    "knex": "^3.1.0",
-    "sqlite3": "^5.1.7",
     "winston": "^3.17.0"
   },
   "devDependencies": {
