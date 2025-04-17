@@ -13,8 +13,9 @@ export const userSchema = Type.Object(
     id: Type.Number(),
     googleId: Type.String(),
     email: Type.Optional(Type.String()),
-    accessToken: Type.Optional(Type.String()),
-    refreshToken: Type.Optional(Type.String()),
+    googleAccessToken: Type.Optional(Type.String()),
+    googleRefreshToken: Type.Optional(Type.String()),
+    googleExpiryDate: Type.Optional(Type.Number()),
     idToken: Type.Optional(Type.String()),
     sub: Type.Optional(Type.String())
   },
@@ -29,7 +30,7 @@ export const userExternalResolver = resolve<User, HookContext<UserService>>({})
 // Schema for creating new entries
 export const userDataSchema = Type.Pick(
   userSchema,
-  ["googleId", "email", "sub", "accessToken", "refreshToken", "idToken"],
+  ["googleId", "email", "sub", "googleAccessToken", "googleRefreshToken", "googleExpiryDate", "idToken"],
   {
     $id: "UserData"
   }
@@ -47,7 +48,14 @@ export const userPatchValidator = getValidator(userPatchSchema, dataValidator)
 export const userPatchResolver = resolve<User, HookContext<UserService>>({})
 
 // Schema for allowed query properties
-export const userQueryProperties = Type.Pick(userSchema, ["id", "googleId", "email"])
+export const userQueryProperties = Type.Pick(userSchema, [
+  "id",
+  "googleId",
+  "email",
+  "googleAccessToken",
+  "googleRefreshToken",
+  "googleExpiryDate"
+])
 export const userQuerySchema = Type.Intersect(
   [
     querySyntax(userQueryProperties),
