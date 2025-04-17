@@ -30,7 +30,9 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # Copy source code and compile
-COPY . .
+COPY src ./src
+COPY config ./config
+COPY package.json package-lock.json ./
 RUN npm run compile
 
 # Stage 3: Production stage with Node.js
@@ -41,6 +43,7 @@ WORKDIR /app
 
 # Copy compiled code from builder stage
 COPY --from=builder /app/lib ./lib
+COPY --from=builder /app/config ./config
 COPY --from=builder /app/package.json .
 
 # Install production dependencies
