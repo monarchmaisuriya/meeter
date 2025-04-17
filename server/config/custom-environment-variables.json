@@ -4,12 +4,16 @@
     "__format": "number"
   },
   "host": "NODE_HOST",
+  "origin": {
+    "__name": "ALLOWED_ORIGINS",
+    "__format": "json"
+  },
   "authentication": {
     "secret": "NODE_SECRET",
     "oauth": {
       "redirect": "OAUTH_REDIRECT_URL",
       "origin": {
-        "__name": "OAUTH_ORIGIN",
+        "__name": "OAUTH_ORIGINS",
         "__format": "json"
       },
       "google": {
