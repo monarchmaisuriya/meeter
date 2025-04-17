@@ -12,12 +12,17 @@ declare module "../declarations" {
 class GoogleStrategy extends OAuthStrategy {
   async getEntityData(profile: OAuthProfile, _existingEntity: any, _params: any) {
     const baseData = await super.getEntityData(profile, _existingEntity, _params)
+    const sessionData = _params?.state?.grant?.response
 
-    if (profile && baseData) {
+    if (profile && baseData && sessionData) {
       return {
         ...baseData,
         email: profile.email,
-        sub: profile.sub ?? profile.id ?? ""
+        sub: profile.sub ?? profile.id ?? "",
+        idToken: sessionData.id_token,
+        googleAccessToken: sessionData.access_token,
+        googleRefreshToken: sessionData.refresh_token,
+        googleExpiryDate: sessionData.raw?.expires_in
       }
     } else {
       return {}
