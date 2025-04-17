@@ -25,7 +25,7 @@ A meeting scheduling application with Google Single Sign-On (SSO) integration.
 
 ### Usage Instructions
 
-1. Clone the repository
+1. Setup the web and server applications, view readme.md for each application.
 
 2. Make the orchestrate script executable:
 
