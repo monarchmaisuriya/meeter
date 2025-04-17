@@ -7,8 +7,8 @@ export const configurationSchema = Type.Intersect([
   defaultAppConfiguration,
   Type.Object({
     host: Type.Optional(Type.String()),
-    port: Type.Number(),
-    public: Type.String()
+    port: Type.Optional(Type.Number()),
+    public: Type.Optional(Type.String())
   })
 ])
 
