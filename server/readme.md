@@ -32,7 +32,7 @@ Key environment variables (configured in config/custom-environment-variables.jso
 - GOOGLE_CLIENT_ID: Google OAuth client ID
 - GOOGLE_CLIENT_SECRET: Google OAuth client secret
 - OAUTH_REDIRECT_URL: Client OAuth redirect URL
-- ALLOWED_ORIGINS: Allowed origins for CORS
+- OAUTH_ORIGIN: Allowed origins for OAuth
 
 ## Setup Instructions
 
