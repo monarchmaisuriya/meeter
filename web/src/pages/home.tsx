@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/dialog"
 import Scheduler from "@/components/local/scheduler"
 import { useEffect, useState } from "react"
-import { toast } from "@/utils/helpers"
+import { isNotEmpty, toast } from "@/utils/helpers"
 import { useClient } from "@/hooks/useClient"
 import { meetings as meetingsClient } from "@/utils/clients"
 import { LoadingSpinner } from "@/components/local/spinner"
@@ -25,7 +25,9 @@ function HomePage() {
 	const { request, loading } = useClient()
 
 	const fetchMeetings = async () => {
-		const response = await request(meetingsClient.find())
+		const response = await request(
+			meetingsClient.find({ query: { $limit: 10 } })
+		)
 		if (response?.error) {
 			toast.error(
 				`An error occurred while fetching meetings: ${response?.error?.message}`
@@ -136,23 +138,25 @@ function HomePage() {
 										</div>
 									) : (
 										<div className="space-y-4">
-											{meetings?.map((meeting) => (
+											{meetings?.map((event, idx) => (
 												<div
-													key={meeting?.id}
+													key={event?.id || idx}
 													className="flex items-center justify-between rounded-lg border p-4">
 													<div>
-														<h3 className="font-medium">{meeting?.title}</h3>
+														<h3 className="font-medium">{event?.title}</h3>
 														<div className="text-sm text-muted-foreground">
-															{meeting?.date}
+															{event?.startDateTime}
 														</div>
 													</div>
-													<Button
-														variant="outline"
-														onClick={() =>
-															window.open(meeting?.link, "_blank")
-														}>
-														Join
-													</Button>
+													{isNotEmpty(event?.meetingLink) && (
+														<Button
+															variant="outline"
+															onClick={() =>
+																window.open(event?.meetingLink, "_blank")
+															}>
+															Join
+														</Button>
+													)}
 												</div>
 											))}
 										</div>
