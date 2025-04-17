@@ -1,7 +1,8 @@
 export type User = {
-	name: string
+	id: string
+	googleId: string
+	sub: string
 	email: string
-	photoURL: string
 } | null
 
 export type Meeting = {
@@ -14,6 +15,6 @@ export type Meeting = {
 export type AppContextType = {
 	user: User
 	setUser: (user: User) => void
-	meetings: Meeting[]
-	setMeetings: (meetings: Meeting[]) => void
+	meetings: Meeting[] | null
+	setMeetings: (meetings: Meeting[] | null) => void
 }
