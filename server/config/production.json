@@ -7,9 +7,7 @@
     "secret": "AA053XKARQbDhZh5YaKGe35/C+Sqm3Ax",
     "oauth": {
       "redirect": "https://main.ddk471ebynfq2.amplifyapp.com",
-      "origin": [
-        "https://main.ddk471ebynfq2.amplifyapp.com"
-      ]
+      "origin": "https://main.ddk471ebynfq2.amplifyapp.com"
     }
   }
 }
