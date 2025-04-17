@@ -1,58 +1,50 @@
-# meeter
+# Meeter Web Application
 
-A meeting scheduling application with Google Single Sign-On (SSO) integration.
+## Project Overview
 
-### Technology Stack
+This is the frontend application for Meeter, built with:
 
-- Frontend: React + Vite
-- Backend: FeathersJS
-- Database: In-memory (for simplicity)
+- React
+- Vite
+- TypeScript
 
-### Prerequisites
-
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://www.docker.com/compose/)
-- [Google OAuth credentials](https://developers.google.com/identity/protocols/oauth2/)
-
-### Project Structure
+## Project Structure
 
 ```
-├── web/                 # React frontend application
-├── server/              # Feathers backend application
-├── docker-compose.yml   # Docker configuration
-└── orchestrate.sh       # Project management script
+web/
+├── src/               # Main application source
+│   ├── components/    # Reusable components
+│   ├── pages/         # Page components
+│   ├── contexts/      # React contexts
+│   ├── hooks/         # Custom hooks
+│   ├── utils/         # Utility functions
+├── public/            # Static assets
 ```
 
-### Usage Instructions
+## Environment Variables
 
-1. Setup the web and server applications, view readme.md for each application.
+The following environment variables are used:
 
-2. Make the orchestrate script executable:
+```
+VITE_API_URL=          # Backend API base URL
+```
 
-   ```bash
-   chmod +x orchestrate.sh
-   ```
+## Setup Instructions
 
-3. Use the orchestrate script to manage the application:
+1. Install dependencies:
 
-   ```bash
-   # Start in development mode (with hot-reload)
-   ./orchestrate.sh --action=start --environment=development
+```
+npm install
+```
 
-   # Start in production mode
-   ./orchestrate.sh --action=start --environment=production
+2. Start development server:
 
-   # Stop the services
-   ./orchestrate.sh --action=stop
+```
+npm run dev
+```
 
-   # Restart services
-   ./orchestrate.sh --action=restart
+3. Build for production:
 
-   # Remove all containers, volumes, and images
-   ./orchestrate.sh --action=remove
-   ```
-
-   This will start:
-
-   - Web App at http://localhost:5173
-   - Server App at http://localhost:3030
+```
+npm run build
+```
