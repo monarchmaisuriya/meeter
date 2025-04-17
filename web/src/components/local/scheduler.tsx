@@ -26,11 +26,11 @@ const Scheduler: React.FC<SchedulerProps> = ({
 	const [meetingType, setMeetingType] = useState<"instant" | "scheduled">(
 		"scheduled"
 	)
-	const [selectedTime, setSelectedTime] = useState<string>("")
+	const [selectedTime, setSelectedTime] = useState<string>("09:00")
 	const [meetingLink, setMeetingLink] = useState<string>("")
 	const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
 	const [duration, setDuration] = useState<string>("30")
-	const [eventDescription, setEventDescription] = useState<string>("")
+	const [eventTitle, setEventTitle] = useState<string>("")
 	const [attendees, setAttendees] = useState<string[]>([])
 
 	const defaultTimes = [
@@ -85,12 +85,12 @@ const Scheduler: React.FC<SchedulerProps> = ({
 					<div className="flex-1">
 						<div className="mb-4">
 							<label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-								Event Description
+								Event Title
 							</label>
 							<Input
 								type="text"
-								value={eventDescription}
-								onChange={(e) => setEventDescription(e.target.value)}
+								value={eventTitle}
+								onChange={(e) => setEventTitle(e.target.value)}
 								placeholder="Why create this meeting?"
 							/>
 						</div>
@@ -147,7 +147,7 @@ const Scheduler: React.FC<SchedulerProps> = ({
 								date: selectedDate,
 								time: selectedTime,
 								duration: duration,
-								description: eventDescription,
+								title: eventTitle,
 							})
 							setDialogOpen(false)
 						}}>
