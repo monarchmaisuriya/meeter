@@ -29,10 +29,11 @@ Key environment variables (configured in config/custom-environment-variables.jso
 - NODE_SECRET: JWT secret (use `openssl rand -base64 32` to generate a secure secret)
 - NODE_PORT: Server port (default: 3030)
 - NODE_HOST: Server hostname (default: localhost)
+- ALLOWED_ORIGINS: Allowed origins for CORS ('["url1", "url2"]')
 - GOOGLE_CLIENT_ID: Google OAuth client ID
 - GOOGLE_CLIENT_SECRET: Google OAuth client secret
 - OAUTH_REDIRECT_URL: Client OAuth redirect URL
-- OAUTH_ORIGIN: Allowed origins for OAuth
+- OAUTH_ORIGINS: Allowed origins for OAuth ('["url1", "url2"]')
 
 ## Setup Instructions
 
