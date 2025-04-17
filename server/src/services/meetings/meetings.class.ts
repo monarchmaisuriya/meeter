@@ -176,7 +176,7 @@ export class MeetingsService<ServiceParams extends MeetingsParams = MeetingsPara
 
       return {
         ...data,
-        id: Date.now().toString(),
+        id: response.data.id || Date.now().toString(),
         meetingLink:
           response.data.hangoutLink || response.data.conferenceData?.entryPoints?.[0]?.uri || undefined
       }
