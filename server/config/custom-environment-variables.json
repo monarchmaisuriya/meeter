@@ -10,7 +10,11 @@
   },
   "authentication": {
     "oauth": {
-      "redirect":"OAUTH_REDIRECT_URL",
+      "redirect": "OAUTH_REDIRECT_URL",
+      "origin": {
+        "__name": "ALLOWED_ORIGINS",
+        "__format": "json"
+      },
       "google": {
         "key": "GOOGLE_CLIENT_ID",
         "secret": "GOOGLE_CLIENT_SECRET"

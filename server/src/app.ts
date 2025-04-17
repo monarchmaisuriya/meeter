@@ -3,6 +3,7 @@ import "dotenv/config"
 import { feathers } from "@feathersjs/feathers"
 import configuration from "@feathersjs/configuration"
 import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors } from "@feathersjs/koa"
+import morgan from "koa-morgan"
 import { configurationValidator } from "./core/configuration"
 import type { Application } from "./declarations"
 import { logError } from "./hooks/log-error"
@@ -10,6 +11,8 @@ import { authentication } from "./core/authentication"
 import { services } from "./services"
 
 const app: Application = koa(feathers())
+
+app.use(morgan("dev"))
 
 // Load our app configuration (see config/ folder)
 app.configure(configuration(configurationValidator))
