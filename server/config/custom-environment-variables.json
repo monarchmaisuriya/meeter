@@ -4,12 +4,12 @@
     "__format": "number"
   },
   "host": "NODE_HOST",
-  "secret": "NODE_SECRET",
   "origins": {
     "__name": "ALLOWED_ORIGINS",
     "__format": "json"
   },
   "authentication": {
+    "secret": "NODE_SECRET",
     "oauth": {
       "redirect": "OAUTH_REDIRECT_URL",
       "origin": {
