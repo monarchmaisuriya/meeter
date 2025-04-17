@@ -25,9 +25,9 @@ server/
 ## Environment Variables
 
 Key environment variables (configured in config/custom-environment-variables.json):
-- NODE_ENV: Node environment (development/production)
-- PORT: Server port (default: 3030)
-- HOSTNAME: Server port (default: localhost)
+- NODE_ENV: Server environment (development/production)
+- NODE_PORT: Server port (default: 3030)
+- NODE_HOST: Server hostname (default: localhost)
 - GOOGLE_CLIENT_ID: Google OAuth client ID
 - GOOGLE_CLIENT_SECRET: Google OAuth client secret
 - OAUTH_REDIRECT_URL: Google OAuth redirect URL
