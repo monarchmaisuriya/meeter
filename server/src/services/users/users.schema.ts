@@ -11,7 +11,12 @@ import type { UserService } from "./users.class"
 export const userSchema = Type.Object(
   {
     id: Type.Number(),
-    googleId: Type.Optional(Type.String())
+    googleId: Type.String(),
+    email: Type.Optional(Type.String()),
+    accessToken: Type.Optional(Type.String()),
+    refreshToken: Type.Optional(Type.String()),
+    idToken: Type.Optional(Type.String()),
+    sub: Type.Optional(Type.String())
   },
   { $id: "User", additionalProperties: false }
 )
@@ -22,9 +27,13 @@ export const userResolver = resolve<User, HookContext<UserService>>({})
 export const userExternalResolver = resolve<User, HookContext<UserService>>({})
 
 // Schema for creating new entries
-export const userDataSchema = Type.Pick(userSchema, ["googleId"], {
-  $id: "UserData"
-})
+export const userDataSchema = Type.Pick(
+  userSchema,
+  ["googleId", "email", "sub", "accessToken", "refreshToken", "idToken"],
+  {
+    $id: "UserData"
+  }
+)
 export type UserData = Static<typeof userDataSchema>
 export const userDataValidator = getValidator(userDataSchema, dataValidator)
 export const userDataResolver = resolve<User, HookContext<UserService>>({})
@@ -38,7 +47,7 @@ export const userPatchValidator = getValidator(userPatchSchema, dataValidator)
 export const userPatchResolver = resolve<User, HookContext<UserService>>({})
 
 // Schema for allowed query properties
-export const userQueryProperties = Type.Pick(userSchema, ["id", "googleId"])
+export const userQueryProperties = Type.Pick(userSchema, ["id", "googleId", "email"])
 export const userQuerySchema = Type.Intersect(
   [
     querySyntax(userQueryProperties),
