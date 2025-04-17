@@ -3,7 +3,8 @@
   "port": 3030,
   "public": "./public/",
   "origins": [
-    "http://localhost:3030"
+    "http://localhost:3030", 
+    "http://localhost:5173"
   ],
   "paginate": {
     "default": 10,
@@ -11,11 +12,11 @@
   },
   "authentication": {
     "entity": "user",
-    "entityId": "googleId",
     "service": "users",
     "secret": "AA053XKARQbDhZh5YaKGe35/C+Sqm3Ax",
     "authStrategies": [
-      "jwt"
+      "jwt",
+      "google"
     ],
     "jwtOptions": {
       "header": {
@@ -26,9 +27,14 @@
       "expiresIn": "1d"
     },
     "oauth": {
+      "redirect": "<Redirect URL>",
       "google": {
         "key": "<Client ID>",
-        "secret": "<Client secret>"
+        "secret": "<Client secret>",
+        "scope": ["openid", "email"],
+        "nonce": true,
+        "authorize_url": "https://accounts.google.com/o/oauth2/v2/auth",
+        "access_type": "online"
       }
     }
   }
