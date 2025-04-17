@@ -4,6 +4,7 @@
     "__format": "number"
   },
   "host": "NODE_HOST",
+  "secret": "NODE_SECRET",
   "origins": {
     "__name": "ALLOWED_ORIGINS",
     "__format": "json"
