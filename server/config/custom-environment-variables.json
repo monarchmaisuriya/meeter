@@ -8,7 +8,10 @@
     "secret": "NODE_SECRET",
     "oauth": {
       "redirect": "OAUTH_REDIRECT_URL",
-      "origin": "OAUTH_REDIRECT_URL",
+      "origin": {
+        "__name": "OAUTH_ORIGIN",
+        "__format": "json"
+      },
       "google": {
         "key": "GOOGLE_CLIENT_ID",
         "secret": "GOOGLE_CLIENT_SECRET"

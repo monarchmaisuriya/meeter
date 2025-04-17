@@ -27,7 +27,7 @@
     },
     "oauth": {
       "redirect": "<Redirect URL>",
-      "origin": "<Redirect URL>",
+      "origin": ["<Redirect URL>"],
       "google": {
         "custom_params": {
           "access_type": "offline",
