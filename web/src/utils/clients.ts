@@ -12,4 +12,6 @@ app.configure(authentication())
 
 const auth = app.service("authentication")
 
-export { app as client, auth }
+const meetings = app.service("meetings")
+
+export { app as client, auth, meetings }
