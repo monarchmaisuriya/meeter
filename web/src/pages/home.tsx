@@ -12,21 +12,22 @@ import {
 } from "@/components/ui/dialog"
 import Scheduler from "@/components/local/scheduler"
 import { useEffect, useState } from "react"
-import { isNotEmpty, toast } from "@/utils/helpers"
+import { formatDateAndTime, isNotEmpty, toast } from "@/utils/helpers"
 import { useClient } from "@/hooks/useClient"
 import { meetings as meetingsClient } from "@/utils/clients"
 import { LoadingSpinner } from "@/components/local/spinner"
+import { Meeting } from "@/declarations"
 
 function HomePage() {
 	const { user, meetings, setMeetings } = useApp()
 	const { handleGoogleSignIn, handleLogOut: handleGoogleLogOut } = useAuth()
-	const [dialogTitle, setDialogTitle] = useState("Create a Scheduled Meeting")
 	const [dialogOpen, setDialogOpen] = useState(false)
-	const { request, loading } = useClient()
+	const { request: queryRequest, loading: queryLoading } = useClient()
+	const { request: mutationRequest, loading: mutationLoading } = useClient()
 
 	const fetchMeetings = async () => {
-		const response = await request(
-			meetingsClient.find({ query: { $limit: 10 } })
+		const response = await queryRequest(
+			meetingsClient.find({ query: { $limit: 100 } })
 		)
 		if (response?.error) {
 			toast.error(
@@ -37,6 +38,18 @@ function HomePage() {
 		}
 	}
 
+	const createMeeting = async (meeting: Partial<Meeting>) => {
+		const response = await mutationRequest(meetingsClient.create(meeting))
+		if (response?.error) {
+			toast.error(
+				`An error occurred while creating meeting: ${response?.error?.message}`
+			)
+		} else {
+			toast.success("Meeting created successfully")
+			fetchMeetings()
+		}
+	}
+
 	useEffect(() => {
 		if (user) {
 			fetchMeetings()
@@ -44,7 +57,7 @@ function HomePage() {
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [user])
 
-	if (loading) {
+	if (queryLoading || mutationLoading) {
 		return (
 			<div className="min-h-screen flex justify-center align-middle items-center">
 				<div className="flex flex-col gap-3 justify-center align-middle items-center">
@@ -93,28 +106,14 @@ function HomePage() {
 										</DialogTrigger>
 										<DialogContent className="min-w-[90%] md:min-w-1/2 p-4">
 											<DialogHeader>
-												<DialogTitle>{dialogTitle}</DialogTitle>
+												<DialogTitle>Create a Meeting</DialogTitle>
 												<DialogDescription>
 													<Scheduler
 														setDialogOpen={setDialogOpen}
-														onMeetingTypeChange={(type: string) => {
-															if (type === "instant") {
-																setDialogTitle("Create an Instant Meeting")
-															} else {
-																setDialogTitle("Create a Scheduled Meeting")
-															}
-														}}
-														onCreateMeeting={(
-															type: string,
-															meeting?: unknown
+														onCreateMeeting={async (
+															meeting: Partial<Meeting>
 														) => {
-															if (type === "instant") {
-																console.log("Type:", type)
-																console.log("Meeting:", meeting)
-															} else {
-																console.log("Type:", type)
-																console.log("Meeting:", meeting)
-															}
+															await createMeeting(meeting)
 														}}
 													/>
 												</DialogDescription>
@@ -143,9 +142,16 @@ function HomePage() {
 													key={event?.id || idx}
 													className="flex items-center justify-between rounded-lg border p-4">
 													<div>
-														<h3 className="font-medium">{event?.title}</h3>
+														<h3
+															className="font-medium cursor-pointer hover:underline"
+															onClick={() =>
+																window.open(event?.calendarLink, "_blank")
+															}>
+															{event?.title}
+														</h3>
 														<div className="text-sm text-muted-foreground">
-															{event?.startDateTime}
+															{event?.startDateTime &&
+																formatDateAndTime(event?.startDateTime)}
 														</div>
 													</div>
 													{isNotEmpty(event?.meetingLink) && (
