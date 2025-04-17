@@ -6,7 +6,7 @@ A meeting scheduling application with Google Single Sign-On (SSO) integration.
 
 - Frontend: React + Vite
 - Backend: FeathersJS
-- Database: SQLite
+- Database: In-memory (for simplicity)
 
 ### Prerequisites
 
