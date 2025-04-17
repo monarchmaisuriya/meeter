@@ -11,7 +11,13 @@ import type { MeetingsService } from "./meetings.class"
 export const meetingsSchema = Type.Object(
   {
     id: Type.Number(),
-    text: Type.String()
+    title: Type.String(),
+    description: Type.Optional(Type.String()),
+    startTime: Type.String(),
+    endTime: Type.String(),
+    meetingLink: Type.Optional(Type.String()),
+    createdBy: Type.Number(),
+    attendees: Type.Optional(Type.Array(Type.String()))
   },
   { $id: "Meetings", additionalProperties: false }
 )
@@ -22,23 +28,25 @@ export const meetingsResolver = resolve<Meetings, HookContext<MeetingsService>>(
 export const meetingsExternalResolver = resolve<Meetings, HookContext<MeetingsService>>({})
 
 // Schema for creating new entries
-export const meetingsDataSchema = Type.Pick(meetingsSchema, ["text"], {
-  $id: "MeetingsData"
-})
+export const meetingsDataSchema = Type.Pick(
+  meetingsSchema,
+  ["title", "description", "startTime", "endTime", "createdBy", "attendees"],
+  {
+    $id: "MeetingsData"
+  }
+)
 export type MeetingsData = Static<typeof meetingsDataSchema>
 export const meetingsDataValidator = getValidator(meetingsDataSchema, dataValidator)
 export const meetingsDataResolver = resolve<Meetings, HookContext<MeetingsService>>({})
 
-// Schema for updating existing entries
-export const meetingsPatchSchema = Type.Partial(meetingsSchema, {
-  $id: "MeetingsPatch"
-})
-export type MeetingsPatch = Static<typeof meetingsPatchSchema>
-export const meetingsPatchValidator = getValidator(meetingsPatchSchema, dataValidator)
-export const meetingsPatchResolver = resolve<Meetings, HookContext<MeetingsService>>({})
-
 // Schema for allowed query properties
-export const meetingsQueryProperties = Type.Pick(meetingsSchema, ["id", "text"])
+export const meetingsQueryProperties = Type.Pick(meetingsSchema, [
+  "id",
+  "title",
+  "createdBy",
+  "startTime",
+  "endTime"
+])
 export const meetingsQuerySchema = Type.Intersect(
   [
     querySyntax(meetingsQueryProperties),
