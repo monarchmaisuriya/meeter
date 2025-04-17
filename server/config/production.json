@@ -1,6 +1,5 @@
 {
   "host": "meeter-production.up.railway.app",
-  "port": 3030,
   "origins": [
     "https://main.ddk471ebynfq2.amplifyapp.com"
   ],
@@ -8,16 +7,9 @@
     "secret": "AA053XKARQbDhZh5YaKGe35/C+Sqm3Ax",
     "oauth": {
       "redirect": "https://main.ddk471ebynfq2.amplifyapp.com",
-      "origin": ["https://main.ddk471ebynfq2.amplifyapp.com"],
-      "google": {
-        "scope": [
-          "openid",
-          "email",
-          "profile",
-          "https://www.googleapis.com/auth/calendar"
-        ],
-        "nonce": true
-      }
+      "origin": [
+        "https://main.ddk471ebynfq2.amplifyapp.com"
+      ]
     }
   }
 }
