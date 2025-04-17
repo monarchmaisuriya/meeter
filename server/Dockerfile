@@ -32,6 +32,7 @@ RUN npm install
 # Copy source code and compile
 COPY src ./src
 COPY config ./config
+COPY tsconfig.json ./tsconfig.json
 COPY package.json package-lock.json ./
 RUN npm run compile
 
