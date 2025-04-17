@@ -26,6 +26,7 @@ server/
 
 Key environment variables (configured in config/custom-environment-variables.json):
 - NODE_ENV: Server environment (development/production)
+- NODE_SECRET: JWT secret (use `openssl rand -base64 32` to generate a secure secret)
 - NODE_PORT: Server port (default: 3030)
 - NODE_HOST: Server hostname (default: localhost)
 - GOOGLE_CLIENT_ID: Google OAuth client ID
