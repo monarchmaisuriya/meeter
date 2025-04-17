@@ -1,6 +1,10 @@
 export type User = {
 	id: string
 	googleId: string
+	googleAccessToken: string
+	googleExpiryDate: string
+	googleRefreshToken: string
+	idToken: string
 	sub: string
 	email: string
 } | null
@@ -8,8 +12,11 @@ export type User = {
 export type Meeting = {
 	id: string
 	title: string
-	date: string
-	link: string
+	startDateTime: string
+	endDateTime: string
+	meetingLink?: string
+	calendarLink: string
+	creator: string
 } | null
 
 export type AppContextType = {
