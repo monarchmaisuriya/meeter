@@ -1,4 +1,5 @@
 // For more information about this file see https://dove.feathersjs.com/guides/cli/application.html
+import "dotenv/config"
 import { feathers } from "@feathersjs/feathers"
 import configuration from "@feathersjs/configuration"
 import { koa, rest, bodyParser, errorHandler, parseAuthentication, cors } from "@feathersjs/koa"
@@ -6,7 +7,7 @@ import { configurationValidator } from "./core/configuration"
 import type { Application } from "./declarations"
 import { logError } from "./hooks/log-error"
 import { authentication } from "./core/authentication"
-import { services } from "./services/index"
+import { services } from "./services"
 
 const app: Application = koa(feathers())
 
@@ -14,7 +15,7 @@ const app: Application = koa(feathers())
 app.configure(configuration(configurationValidator))
 
 // Set up Koa middleware
-app.use(cors())
+app.use(cors({ origin: "*", credentials: true }))
 app.use(errorHandler())
 app.use(parseAuthentication())
 app.use(bodyParser())
