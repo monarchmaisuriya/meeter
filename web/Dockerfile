@@ -15,6 +15,8 @@ COPY . .
 
 # Expose development port
 EXPOSE 5173
+# Set the NODE_ENV to development
+ENV NODE_ENV=development
 
 # Start development server
 CMD ["npm", "run", "dev:host"]
@@ -44,8 +46,11 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json .
 
 # Install serve globally and production dependencies
-RUN npm install -g serve && npm install --production
+RUN npm install -g serve && npm install --legacy-peer-deps --omit=dev
 
+# Expose production port
 EXPOSE 5173
+# Set the NODE_ENV to production
+ENV NODE_ENV=production
 
 CMD ["serve", "-s", "dist", "-l", "5173"]

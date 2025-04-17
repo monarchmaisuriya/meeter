@@ -48,7 +48,7 @@ COPY --from=builder /app/config ./config
 COPY --from=builder /app/package.json .
 
 # Install production dependencies
-RUN npm install --production
+RUN npm install --omit=dev
 
 EXPOSE 3030
 
