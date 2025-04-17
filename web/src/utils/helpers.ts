@@ -16,3 +16,14 @@ export function isNotEmpty<T>(value: T | null | undefined): value is T {
 		value !== 0
 	)
 }
+
+export function formatDateAndTime(date?: Date | string) {
+	const d = date ? new Date(date) : new Date()
+	const dateStr = d.toISOString().split("T")[0]
+	const timeStr = d.toLocaleTimeString("en-US", {
+		hour: "2-digit",
+		minute: "2-digit",
+		hour12: true,
+	})
+	return `${dateStr}, ${timeStr}`
+}
