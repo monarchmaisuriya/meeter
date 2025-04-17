@@ -9,6 +9,7 @@ import type { Application } from "./declarations"
 import { logError } from "./hooks/log-error"
 import { authentication } from "./core/authentication"
 import { services } from "./services"
+import { logger } from "./utils/logger"
 
 const app: Application = koa(feathers())
 
@@ -28,6 +29,11 @@ app.configure(rest())
 
 app.configure(authentication)
 app.configure(services)
+
+Object.keys(app.services).forEach(path => {
+  logger.info(`Registered service route: /${path}`);
+});
+
 
 // Register hooks that run on all service methods
 app.hooks({
