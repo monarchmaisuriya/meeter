@@ -28,7 +28,7 @@
   },
   "main": "lib/index",
   "scripts": {
-    "dev": "nodemon -x ts-node src/index.ts",
+    "dev": "NODE_ENV=development -x ts-node src/index.ts",
     "compile": "shx rm -rf lib/ && tsc",
     "start": "node lib/",
     "prettier": "npx prettier \"**/*.ts\" --write",
