@@ -4,8 +4,11 @@
     "__format": "number"
   },
   "host": "NODE_HOST",
+  "origins": {
+    "__name": "ALLOWED_ORIGINS",
+    "__format": "json"
+  },
   "authentication": {
-    "secret": "FEATHERS_SECRET",
     "oauth": {
       "redirect":"OAUTH_REDIRECT_URL",
       "google": {
