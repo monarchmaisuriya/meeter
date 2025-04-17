@@ -4,10 +4,6 @@
     "__format": "number"
   },
   "host": "NODE_HOST",
-  "origins": {
-    "__name": "ALLOWED_ORIGINS",
-    "__format": "json"
-  },
   "authentication": {
     "secret": "NODE_SECRET",
     "oauth": {
