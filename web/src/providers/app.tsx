@@ -22,8 +22,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
 		sessionStorage.setItem("user", JSON.stringify(newUser))
 	}
 
-	const updateMeetings = (newMeetings: Meeting[]) => {
-		setState((prev) => ({ ...prev, meetings: newMeetings }))
+	const updateMeetings = (newMeetings: Meeting[] | null) => {
+		setState((prev) => ({ ...prev, meetings: newMeetings ?? [] }))
 		sessionStorage.setItem("meetings", JSON.stringify(newMeetings))
 	}
 
