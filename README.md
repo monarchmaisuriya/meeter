@@ -1,58 +1,88 @@
-# meeter
+# Meeter Backend Server
 
-A meeting scheduling application with Google Single Sign-On (SSO) integration.
+## Project Overview
 
-### Technology Stack
+This is the backend server for Meeter, built with:
+- FeathersJS
+- TypeScript
 
-- Frontend: React + Vite
-- Backend: FeathersJS
-- Database: In-memory (for simplicity)
-
-### Prerequisites
-
-- [Docker](https://www.docker.com/)
-- [Docker Compose](https://www.docker.com/compose/)
-- [Google OAuth credentials](https://developers.google.com/identity/protocols/oauth2/)
-
-### Project Structure
+## Project Structure
 
 ```
-├── web/                 # React frontend application
-├── server/              # Feathers backend application
-├── docker-compose.yml   # Docker configuration
-└── orchestrate.sh       # Project management script
+server/
+├── config/                # Configuration files
+│   ├── default.json       # Default configuration
+│   ├── test.json          # Test environment config
+│   └── custom-environment-variables.json # Environment variables mapping
+├── src/                   # Application source
+│   ├── core               # Main application setup and configuration
+│   ├── services/          # Service definitions
+│   ├── hooks/             # Service hooks
+│   └── utils/             # Utility functions
+└── test/                  # Test files
 ```
 
-### Usage Instructions
+## Environment Variables
 
-1. Setup the web and server applications, view readme.md for each application.
+Key environment variables (configured in config/custom-environment-variables.json):
+- PORT: Server port (default: 3030)
+- NODE_ENV: Node environment (development/production)
+- GOOGLE_CLIENT_ID: Google OAuth client ID
+- GOOGLE_CLIENT_SECRET: Google OAuth client secret
+- OAUTH_REDIRECT_URL: Google OAuth redirect URL
 
-2. Make the orchestrate script executable:
+## Setup Instructions
 
-   ```bash
-   chmod +x orchestrate.sh
-   ```
+1. Install dependencies:
+```
+npm install
+```
 
-3. Use the orchestrate script to manage the application:
+2. Development:
+```
+npm run dev       # Start development server with hot-reload
+```
 
-   ```bash
-   # Start in development mode (with hot-reload)
-   ./orchestrate.sh --action=start --environment=development
+3. Testing:
+```
+npm test          # Run all tests
+```
 
-   # Start in production mode
-   ./orchestrate.sh --action=start --environment=production
+4. Production Build:
+```
+npm run compile     # Create production build
+npm start         # Start production server
+```
 
-   # Stop the services
-   ./orchestrate.sh --action=stop
+## API Endpoints
 
-   # Restart services
-   ./orchestrate.sh --action=restart
+- Authentication: /oauth/google
+- User services: /users
+- Meetings services: /meetings
 
-   # Remove all containers, volumes, and images
-   ./orchestrate.sh --action=remove
-   ```
+## Service Schemas
 
-   This will start:
+### Users Service
+Fields:
+- id: number (required)
+- googleId: string (required)
+- email: string (optional)
+- googleAccessToken: string (optional)
+- googleRefreshToken: string (optional)
+- googleExpiryDate: number (optional)
+- idToken: string (optional)
+- sub: string (optional)
 
-   - Web App at http://localhost:5173
-   - Server App at http://localhost:3030
+### Meetings Service
+Fields:
+- id: string (required)
+- title: string (required)
+- description: string (optional)
+- startDateTime: string (required)
+- endDateTime: string (required)
+- meetingLink: string (optional)
+- calendarLink: string (optional)
+- createdBy: string (optional)
+- attendees: string[] (optional)
+
+Note: See individual service files for complete endpoint and schema information.
