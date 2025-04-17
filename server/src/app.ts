@@ -31,9 +31,8 @@ app.configure(authentication)
 app.configure(services)
 
 Object.keys(app.services).forEach(path => {
-  logger.info(`Registered service route: /${path}`);
-});
-
+  logger.info(`Registered service route: /${path}`)
+})
 
 // Register hooks that run on all service methods
 app.hooks({
