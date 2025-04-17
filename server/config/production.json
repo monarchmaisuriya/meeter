@@ -1,14 +1,16 @@
 {
   "host": "meeter-production.up.railway.app",
-  "ALLOWED_ORIGINS": [
-    "https://main.ddk471ebynfq2.amplifyapp.com"
+  "origins": [
+    "https://main.ddk471ebynfq2.amplifyapp.com",
+    "https://main.ddk471ebynfq2.amplifyapp.com/"
   ],
   "authentication": {
     "secret": "AA053XKARQbDhZh5YaKGe35/C+Sqm3Ax",
     "oauth": {
       "redirect": "https://main.ddk471ebynfq2.amplifyapp.com",
       "origin": [
-        "https://main.ddk471ebynfq2.amplifyapp.com"
+        "https://main.ddk471ebynfq2.amplifyapp.com",
+        "https://main.ddk471ebynfq2.amplifyapp.com/"
       ]
     }
   }
