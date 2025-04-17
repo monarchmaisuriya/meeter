@@ -10,13 +10,14 @@ import type { MeetingsService } from "./meetings.class"
 // Main data model schema
 export const meetingsSchema = Type.Object(
   {
-    id: Type.Number(),
+    id: Type.String(),
     title: Type.String(),
     description: Type.Optional(Type.String()),
-    startTime: Type.String(),
-    endTime: Type.String(),
+    startDateTime: Type.String(),
+    endDateTime: Type.String(),
     meetingLink: Type.Optional(Type.String()),
-    createdBy: Type.Number(),
+    calendarLink: Type.Optional(Type.String()),
+    createdBy: Type.Optional(Type.String()),
     attendees: Type.Optional(Type.Array(Type.String()))
   },
   { $id: "Meetings", additionalProperties: false }
@@ -30,7 +31,7 @@ export const meetingsExternalResolver = resolve<Meetings, HookContext<MeetingsSe
 // Schema for creating new entries
 export const meetingsDataSchema = Type.Pick(
   meetingsSchema,
-  ["title", "description", "startTime", "endTime", "createdBy", "attendees"],
+  ["title", "description", "startDateTime", "endDateTime", "attendees"],
   {
     $id: "MeetingsData"
   }
@@ -44,8 +45,8 @@ export const meetingsQueryProperties = Type.Pick(meetingsSchema, [
   "id",
   "title",
   "createdBy",
-  "startTime",
-  "endTime"
+  "startDateTime",
+  "endDateTime"
 ])
 export const meetingsQuerySchema = Type.Intersect(
   [

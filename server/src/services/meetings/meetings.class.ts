@@ -88,13 +88,14 @@ export class MeetingsService<ServiceParams extends MeetingsParams = MeetingsPara
 
       const meetings =
         response.data.items?.map(event => ({
-          id: Date.now(),
+          id: event.id || Date.now().toString(),
           title: event.summary || "",
           description: event.description || "",
-          startTime: event.start?.dateTime || "",
-          endTime: event.end?.dateTime || "",
+          startDateTime: event.start?.dateTime || "",
+          endDateTime: event.end?.dateTime || "",
           meetingLink: event.hangoutLink || event.conferenceData?.entryPoints?.[0]?.uri || "",
-          createdBy: user?.id || 0,
+          calendarLink: event.htmlLink || "",
+          createdBy: event.creator?.email || event.organizer?.email || "",
           attendees: event.attendees?.map(attendee => attendee.email || "")
         })) || []
 
@@ -112,7 +113,6 @@ export class MeetingsService<ServiceParams extends MeetingsParams = MeetingsPara
 
   async create(data: MeetingsData, params?: ServiceParams): Promise<Meetings> {
     const user = params?.user
-
     if (!user) {
       throw new NotAuthenticated("User not authenticated")
     }
@@ -149,13 +149,13 @@ export class MeetingsService<ServiceParams extends MeetingsParams = MeetingsPara
 
     const event = {
       summary: data.title,
-      description: data.description,
+      description: data.description ?? "",
       start: {
-        dateTime: data.startTime,
+        dateTime: data.startDateTime,
         timeZone: "UTC"
       },
       end: {
-        dateTime: data.endTime,
+        dateTime: data.endDateTime,
         timeZone: "UTC"
       },
       attendees: data.attendees?.map(email => ({ email })),
@@ -176,7 +176,7 @@ export class MeetingsService<ServiceParams extends MeetingsParams = MeetingsPara
 
       return {
         ...data,
-        id: Date.now(),
+        id: Date.now().toString(),
         meetingLink:
           response.data.hangoutLink || response.data.conferenceData?.entryPoints?.[0]?.uri || undefined
       }
