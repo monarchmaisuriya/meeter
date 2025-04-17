@@ -6,13 +6,13 @@ export const logError = async (context: HookContext, next: NextFunction) => {
   try {
     await next()
   } catch (error: any) {
-    logger.error(error.stack)
-
-    // Log validation errors
+    logger.error(error.message)
+    if (error.stack) {
+      logger.error("Stack: %O", error.stack)
+    }
     if (error.data) {
       logger.error("Data: %O", error.data)
     }
-
     throw error
   }
 }
