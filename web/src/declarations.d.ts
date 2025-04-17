@@ -16,8 +16,9 @@ export type Meeting = {
 	endDateTime: string
 	meetingLink?: string
 	calendarLink: string
-	creator: string
-} | null
+	createdBy: string
+	attendees: string[]
+}
 
 export type AppContextType = {
 	user: User
