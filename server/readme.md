@@ -1,42 +1,88 @@
-# server
+# Meeter Backend Server
 
-> 
+## Project Overview
 
-## About
+This is the backend server for Meeter, built with:
+- FeathersJS
+- TypeScript
 
-This project uses [Feathers](http://feathersjs.com). An open source framework for building APIs and real-time applications.
-
-## Getting Started
-
-1. Make sure you have [NodeJS](https://nodejs.org/) and [npm](https://www.npmjs.com/) installed.
-2. Install your dependencies
-
-    ```
-    cd path/to/server
-    npm install
-    ```
-
-3. Start your app
-
-    ```
-    npm run compile # Compile TypeScript source
-    npm run migrate # Run migrations to set up the database
-    npm start
-    ```
-
-## Testing
-
-Run `npm test` and all your tests in the `test/` directory will be run.
-
-## Scaffolding
-
-This app comes with a powerful command line interface for Feathers. Here are a few things it can do:
+## Project Structure
 
 ```
-$ npx feathers help                           # Show all commands
-$ npx feathers generate service               # Generate a new Service
+server/
+├── config/                # Configuration files
+│   ├── default.json       # Default configuration
+│   ├── test.json          # Test environment config
+│   └── custom-environment-variables.json # Environment variables mapping
+├── src/                   # Application source
+│   ├── core               # Main application setup and configuration
+│   ├── services/          # Service definitions
+│   ├── hooks/             # Service hooks
+│   └── utils/             # Utility functions
+└── test/                  # Test files
 ```
 
-## Help
+## Environment Variables
 
-For more information on all the things you can do with Feathers visit [docs.feathersjs.com](http://docs.feathersjs.com).
+Key environment variables (configured in config/custom-environment-variables.json):
+- PORT: Server port (default: 3030)
+- NODE_ENV: Node environment (development/production)
+- GOOGLE_CLIENT_ID: Google OAuth client ID
+- GOOGLE_CLIENT_SECRET: Google OAuth client secret
+- OAUTH_REDIRECT_URL: Google OAuth redirect URL
+
+## Setup Instructions
+
+1. Install dependencies:
+```
+npm install
+```
+
+2. Development:
+```
+npm run dev       # Start development server with hot-reload
+```
+
+3. Testing:
+```
+npm test          # Run all tests
+```
+
+4. Production Build:
+```
+npm run compile     # Create production build
+npm start         # Start production server
+```
+
+## API Endpoints
+
+- Authentication: /oauth/google
+- User services: /users
+- Meetings services: /meetings
+
+## Service Schemas
+
+### Users Service
+Fields:
+- id: number (required)
+- googleId: string (required)
+- email: string (optional)
+- googleAccessToken: string (optional)
+- googleRefreshToken: string (optional)
+- googleExpiryDate: number (optional)
+- idToken: string (optional)
+- sub: string (optional)
+
+### Meetings Service
+Fields:
+- id: string (required)
+- title: string (required)
+- description: string (optional)
+- startDateTime: string (required)
+- endDateTime: string (required)
+- meetingLink: string (optional)
+- calendarLink: string (optional)
+- createdBy: string (optional)
+- attendees: string[] (optional)
+
+Note: See individual service files for complete endpoint and schema information.
