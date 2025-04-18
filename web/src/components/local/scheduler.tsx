@@ -23,12 +23,6 @@ const Scheduler: React.FC<SchedulerProps> = ({
 	onCreateMeeting,
 	setDialogOpen,
 }) => {
-	const [selectedTime, setSelectedTime] = useState<string>("09:00")
-	const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
-	const [duration, setDuration] = useState<string>("30")
-	const [eventTitle, setEventTitle] = useState<string>("")
-	const [attendees, setAttendees] = useState<string>("")
-
 	const defaultTimes = [
 		"09:00",
 		"09:30",
@@ -49,8 +43,48 @@ const Scheduler: React.FC<SchedulerProps> = ({
 
 	const times = availableTimes.length > 0 ? availableTimes : defaultTimes
 
+	const findNearestTime = (timeList: string[]): string => {
+		const now = new Date()
+		const currentHours = now.getHours()
+		const currentMinutes = now.getMinutes()
+		const currentTotalMinutes = currentHours * 60 + currentMinutes
+
+		let nearestTime = timeList[0]
+		let minDiff = Infinity
+
+		for (const time of timeList) {
+			const [hours, minutes] = time.split(":").map(Number)
+			const totalMinutes = hours * 60 + minutes
+			const diff = totalMinutes - currentTotalMinutes
+
+			if (diff >= 0 && diff < minDiff) {
+				minDiff = diff
+				nearestTime = time
+			}
+		}
+
+		return nearestTime
+	}
+
+	const [selectedTime, setSelectedTime] = useState<string>(
+		findNearestTime(times)
+	)
+	const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date())
+	const [duration, setDuration] = useState<string>("30")
+	const [eventTitle, setEventTitle] = useState<string>("")
+	const [attendees, setAttendees] = useState<string>("")
+
 	const handleTimeClick = (time: string) => {
 		setSelectedTime(time)
+	}
+
+	const isTimeDisabled = (time: string) => {
+		if (!selectedDate) return true
+		const now = new Date()
+		const [hours, minutes] = time.split(":").map(Number)
+		const selectedDateTime = new Date(selectedDate)
+		selectedDateTime.setHours(hours, minutes, 0, 0)
+		return selectedDateTime < now
 	}
 
 	return (
@@ -116,6 +150,10 @@ const Scheduler: React.FC<SchedulerProps> = ({
 								key={time}
 								variant={selectedTime === time ? "default" : "outline"}
 								onClick={() => handleTimeClick(time)}
+								disabled={isTimeDisabled(time)}
+								className={
+									isTimeDisabled(time) ? "opacity-50 cursor-not-allowed" : ""
+								}
 								size={"xs"}>
 								{time}
 							</Button>
